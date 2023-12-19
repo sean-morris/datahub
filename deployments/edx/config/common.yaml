@@ -18,15 +18,13 @@ jupyterhub:
     service:
       type: LoadBalancer
   hub:
-    loadRoles:
-      read-users:
-        name: read-user
-        scopes:
-        - access:services
-        - read:users
-        - list:users
-        services:
-        - otter_grade
+    services:
+      otter_grade:
+        oauth_client_allowed_scopes:
+            - list:users
+            - read:users
+            - access:services
+        oauth_no_confirm: True
     config:
       JupyterHub:
         authenticator_class: ltiauthenticator.lti11.auth.LTI11Authenticator
