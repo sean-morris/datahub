@@ -1,5 +1,5 @@
 ---
-title: DataHub CI/CD
+title: Continuous Integration and Deployment
 ---
 
 ## Overview
@@ -21,7 +21,7 @@ The basic order of operations is as follows:
 The hubs are deployed via [hubploy](https://github.com/berkeley-dsep-infra/hubploy),
 which is our custom wrapper for `gcloud`, `sops` and `helm`.
 
-## Github Actions architecture
+## Github Actions Architecture
 
 ### Secrets and Variables
 
@@ -137,6 +137,10 @@ There are also a couple of other workflows in the datahub repository:
 
 [quarto-docs.yml](https://github.com/berkeley-dsep-infra/datahub/blob/staging/.github/workflows/quarto-docs.yml)
 : This builds, renders and pushes our docs to Github Pages.
+
+### Documentation's Workflow
+
+This documentation is also [deployed by GitHub Actions](../tasks/documentation.html#action).
 
 ## Original Design Document
 
