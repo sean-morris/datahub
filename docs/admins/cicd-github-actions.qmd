@@ -13,10 +13,10 @@ These workflows are stored in the DataHub repo in the
 
 The basic order of operations is as follows:
 
-1. PR is created in the datahub repo.
+1. A pull request is created in the datahub repo.
 1. The labeler workflow applies labels based on the [file type and/or location](https://github.com/berkeley-dsep-infra/datahub/blob/staging/.github/labeler.yml).
-1. On PR merge to staging, if the labels match any hub, support or node placeholder deployments those specific systems are deployed.
-1. On PR merge to prod, only hubs are deployed (again based on labels).
+1. When the pull request is merged to `staging`, if the labels match any hub, support or node placeholder deployments those specific systems are deployed.
+1. When the pull request is merged to prod, only the hubs that have been modified are deployed (again based on labels).
 
 The hubs are deployed via [hubploy](https://github.com/berkeley-dsep-infra/hubploy),
 which is our custom wrapper for `gcloud`, `sops` and `helm`.
@@ -116,6 +116,8 @@ a list of what's to be deployed.
 
 That list is iterated over, and [hubploy](https://github.com/berkeley-dsep-infra/hubploy)
 is used to deploy only the flagged hubs.
+
+![CI/CD workflow for single-user server images](ci-cd-workflow.svg)
 
 #### Support and node-placeholder charts
 
