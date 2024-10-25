@@ -1,6 +1,6 @@
-=======================
-Contributing to DataHub
-=======================
+==============================================
+Datahub architecture and contribution overview
+==============================================
 
 .. toctree::
    :titlesonly:
@@ -8,9 +8,10 @@ Contributing to DataHub
 
    pre-reqs
    structure
-   storage
+   cicd-github-actions
    cluster-config
    credentials
+   storage
    incidents/index
 
 .. toctree::
