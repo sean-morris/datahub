@@ -1,14 +1,14 @@
 ---
-title: Datahub CI/CD
+title: DataHub CI/CD
 ---
 
-## Datahub CI/CD overview
+## Overview
 
-Datahub's continuous integration and deployment system uses both
+DataHub's continuous integration and deployment system uses both
 [Github Actions](https://github.com/features/actions) and
 [workflows](https://docs.github.com/en/actions/writing-workflows).
 
-These workflows are stored in the Datahub repo in the
+These workflows are stored in the DataHub repo in the
 [.github/workflows/](https://github.com/berkeley-dsep-infra/datahub/tree/staging/.github/workflows) directory.
 
 The basic order of operations is as follows:
@@ -59,7 +59,7 @@ edit this secret and manually add this repository to the access list.
 IMAGE_BUILDER_BOT_EMAIL and IMAGE_BUILDER_BOT_NAME
 : These are used to set the git identity in the image build workflow step that pushes a commit and creates a PR in the datahub repo.
 
-###### Datahub repository secrets
+###### DataHub repository secrets
 
 GCP_PROJECT_ID
 : This is the name of our GCP project.
