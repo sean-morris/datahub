@@ -1,23 +1,12 @@
-==============================================
-Datahub architecture and contribution overview
-==============================================
-
-.. toctree::
-   :titlesonly:
-   :maxdepth: 2
-
-   pre-reqs
-   structure
-   cicd-github-actions
-   cluster-config
-   credentials
-   storage
-   incidents/index
-
-.. toctree::
-   :titlesonly:
-   :maxdepth: 2
-
-   howto/index
-
-   deployments/index
+---
+title: Architecture and Contribution Overview
+listing:
+  contents:
+    - pre-reqs.qmd
+    - structure.qmd
+    - cicd-github-actions.qmd
+    - cluster-config.qmd
+    - credentials.qmd
+    - storage.qmd
+  sort: false
+---
