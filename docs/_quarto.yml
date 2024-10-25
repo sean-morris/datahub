@@ -28,7 +28,7 @@ website:
         text: Home
       - href: hubs.qmd
         text: JupyterHub Deployments
-      - section: "Datahub architecture and contribution overview"
+      - section: "Architecture and Contribution Overview"
         contents:
           - admins/pre-reqs.qmd
           - admins/structure.qmd
