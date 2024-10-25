@@ -35,6 +35,7 @@ website:
           - admins/storage.qmd
           - admins/cluster-config.qmd
           - admins/credentials.qmd
+          - admins/cicd-github-actions.qmd
       - section: "Common Administrator Tasks"
         contents:
           - tasks/documentation.qmd
