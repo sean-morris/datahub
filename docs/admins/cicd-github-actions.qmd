@@ -2,7 +2,7 @@
 title: Datahub CI/CD
 ---
 
-# Datahub CI/CD
+# Datahub CI/CD overview
 
 Datahub's continuous integration and deployment system uses both
 [Github Actions](https://github.com/features/actions) and
@@ -157,4 +157,5 @@ This builds, renders and pushes our docs to Github Pages.
 
 # Original design document
 
-https://docs.google.com/presentation/d/1o_P4H8XfbdgI5NMPnjojHZOcSNHRoP5twl0E8Ern1z4/edit?usp=sharing
+Here are the [slides](https://docs.google.com/presentation/d/1o_P4H8XfbdgI5NMPnjojHZOcSNHRoP5twl0E8Ern1z4/edit?usp=sharing)
+that describe the process in some more detail.
