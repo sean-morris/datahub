@@ -2,7 +2,7 @@
 title: Datahub CI/CD
 ---
 
-## Datahub CI/CD 
+# Datahub CI/CD
 
 Datahub's continuous integration and deployment system uses both
 [Github Actions](https://github.com/features/actions) and
@@ -21,18 +21,18 @@ The basic order of operations is as follows:
 The hubs are deployed via [hubploy](https://github.com/berkeley-dsep-infra/hubploy),
 which is our custom wrapper for `gcloud`, `sops` and `helm`.
 
-## Github Actions architecture
+# Github Actions architecture
 
-### Secrets and variables
+## Secrets and variables
 
 All of these workflows depend on a few Actions secrets and variables, with
 some at the organization level, and others at the repository level.
 
-#### Organization secrets and variables
+### Organization secrets and variables
 
 All of the organizational secrets and variables are located [here](https://github.com/organizations/berkeley-dsep-infra/settings/secrets/actions).
 
-##### Organization Secrets
+#### Organization Secrets
 
 **DATAHUB_CREATE_PR**
 
@@ -44,7 +44,7 @@ This secret is a fine-grained personal [access token](https://docs.github.com/en
 When adding a new image repository in the berkeley-dsep-infra org, you must
 edit this secret and manually add this repository to the access list.
 
-*IMPORTANT!* This PAT has an lifetime of 366 days, and should be rotated at the
+*IMPORTANT:* This PAT has an lifetime of 366 days, and should be rotated at the
 beginning of every maintenance window!
 
 **GAR_SECRET_KEY** and **GAR_SECRET_KEY_EDX**
@@ -56,7 +56,7 @@ the Artifact Registry.
 When adding a new image repository in the berkeley-dsep-infra org, you must
 edit this secret and manually add this repository to the access list.
 
-##### Organization Variables
+#### Organization Variables
 
 **IMAGE_BUILDER_BOT_EMAIL** and **IMAGE_BUILDER_BOT_NAME**
 
@@ -83,7 +83,7 @@ and has the assigned roles of `roles/container.clusterViewer` and
 This key is used to decrypt our secrets using `sops`, and is attached to the
 `sopsaccount` service account and provides KMS access.
 
-##### Image repository variables
+#### Image repository variables
 
 Each image repository contains two variables, which are used to identify the
 name of the hub, and the path within the Artifact Registry that it's published
@@ -97,7 +97,7 @@ The name of the hub, natch!  datahub, data100, etc.
 
 The path within the artifact registry:  `ucb-datahub-2018/user-images/<hubname>-user-image`
 
-### Single user server image modification workflow
+## Single user server image modification workflow
 
 Each hub's user image is located in the berkeley-dsep-infra's organization.
 When a pull request is submitted, there are two workflows that run:
@@ -114,9 +114,9 @@ This builds the image again, and when successful pushes it to our Google
 Artifact Registry and creates a pull request in the datahub repository with the
 updated image tag for that hub's deployment.
 
-### Updating the datahub repository
+## Updating the datahub repository
 
-#### Single user server image tag updates
+### Single user server image tag updates
 
 When a pull request is opened to update one or more image tags for deployments,
 the [labeler](https://github.com/berkeley-dsep-infra/datahub/blob/staging/.github/labeler.yml)
@@ -132,7 +132,7 @@ a list of what's to be deployed.
 That list is iterated over, and [hubploy](https://github.com/berkeley-dsep-infra/hubploy)
 is used to deploy only the flagged hubs.
 
-#### Support and node-placeholder charts
+### Support and node-placeholder charts
 
 Each of these deployments has their own workflow, which only runs on pushes to
 `staging`:
@@ -143,7 +143,7 @@ Each of these deployments has their own workflow, which only runs on pushes to
 If the correct labels are found, it will use the **GKE_KEY** secret to run
 `helm upgrade` for the necessary deployments.
 
-#### Misc workflows
+### Misc workflows
 
 There are also a couple of other workflows in the datahub repository:
 
@@ -155,6 +155,6 @@ This workflow will only allow us to merge to `prod` from `staging`.
 
 This builds, renders and pushes our docs to Github Pages.
 
-## Original design document
+# Original design document
 
 https://docs.google.com/presentation/d/1o_P4H8XfbdgI5NMPnjojHZOcSNHRoP5twl0E8Ern1z4/edit?usp=sharing
