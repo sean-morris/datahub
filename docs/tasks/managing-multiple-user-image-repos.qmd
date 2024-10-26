@@ -40,6 +40,11 @@ those changes usable without reinstalling or needing to hack your `PATH`.
 python3 -m pip install --no-cache git+https://github.com/berkeley-dsep-infra/manage-repos
 ```
 
+### Installing the `gh` tool
+
+To use the `pr` and `merge` sub-commands, you will also need to install the
+Github CLI tool: https://github.com/cli/cli#installation
+
 ## Usage
 
 ### Overview of git operations included in `manage-repos`:
@@ -50,8 +55,10 @@ of similar repositories:
 * `branch`: Create a feature branch
 * `clone`: Clone all repositories in the config file to a location on the
            filesystem specified by the `--destination` argument.
+* `merge`: Merge the most recent pull request in the managed repositories.
 * `patch`: Apply a [git patch](https://git-scm.com/docs/git-apply) to all
            repositories in the config file.
+* `pr`: Create pull requests in the managed repositories.
 * `push`: Push a branch from all repos to a remote. The remote defaults to
           `origin`.
 * `stage`: Performs a `git add` and `git commit` to stage changes before
@@ -78,6 +85,7 @@ options:
                         directory.
   -d DESTINATION, --destination DESTINATION
                         Location on the filesystem of the directory containing the managed repositories. Defaults to the current working directory.
+  --version             show program's version number and exit
 ```
 
 `--config` is required, and setting `--destination` is recommended.
@@ -126,6 +134,31 @@ passing a different remote name with the `--set-remote` argument).
 After cloning, `git remote -v` will be executed for each repository to allow
 you to confirm that the remotes are properly set.
 
+#### `merge`
+
+```
+$ usage: manage-repos merge [-h] [-b BODY] [-d] [-s {merge,rebase,squash}]
+
+Using the gh tool, merge the most recent pull request in the managed
+repositories. Before using this command, you must authenticate with gh to
+ensure that you have the correct permission for the required scopes.
+
+options:
+  -h, --help            show this help message and exit
+  -b BODY, --body BODY  The commit message to apply to the merge (optional).
+  -d, --delete          Delete your local feature branch after the pull request
+                        is merged (optional).
+  -s {merge,rebase,squash}, --strategy {merge,rebase,squash}
+                        The pull request merge strategy to use, defaults to
+                        'merge'.
+```
+
+Be aware that the default behavior is to merge only the newest pull request in
+the managed repositories. The reasoning behind this is that if you have created
+pull requests across many repositories, the pull request numbers will almost
+certainly be different, and adding interactive steps to merge specific pull
+requests will be cumbersome.
+
 #### `patch`
 
 ```
@@ -153,6 +186,29 @@ and the script will attempt to apply the patch to all of the repositories.
 
 If it is unable to apply the patch, the script will continue to run and notify
 you when complete which repositories failed to accept the patch.
+
+#### `pr`
+```
+$ manage-repos pr --help
+usage: manage-repos pr [-h] [-t TITLE] [-b BODY] [-B BRANCH_DEFAULT]
+                       [-g GITHUB_USER]
+
+Using the gh tool, create a pull request after pushing.
+
+options:
+  -h, --help            show this help message and exit
+  -t TITLE, --title TITLE
+                        Title of the pull request.
+  -b BODY, --body BODY  Body of the pull request (optional).
+  -B BRANCH_DEFAULT, --branch-default BRANCH_DEFAULT
+                        Default remote branch that the pull requests will be
+                        merged to. This is optional and defaults to 'main'.
+  -g GITHUB_USER, --github-user GITHUB_USER
+                        The GitHub username used to create the pull request.
+```
+
+After you've `stage`d and `push`ed your changes, this command will then create
+a pull request using the `gh` tool.
 
 #### `push`
 
@@ -191,7 +247,7 @@ options:
   -f FILES [FILES ...], --files FILES [FILES ...]
                         Space-delimited list of files to stage in the
                         repositories. Optional, and if left blank will default
-                        to all modified files.
+                        to all modified files in the directory.
   -m MESSAGE, --message MESSAGE
                         Commit message to use for the changes.
 ```
