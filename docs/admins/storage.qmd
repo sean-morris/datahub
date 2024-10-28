@@ -4,19 +4,22 @@ title: User home directory storage
 
 All users on all the hubs get a home directory with persistent storage.
 
-## Why NFS?
+## Why Google Filestore?
 
-NFS isn\'t a particularly cloud-native technology. It isn\'t highly
-available nor fault tolerant by default, and is a single point of
-failure. However, it is currently the best of the alternatives available
-for user home directories, and so we use it.
+After hosting our own NFS server for user home directories, we found that NFS
+is much more difficult to manage at the scale we were at.
+
+Filestore has been rock-solid after moving to it in early 2023, and we are
+happy with the performance and cost.
+
+Our basic requirements for user storage are as follows:
 
 1.  Home directories need to be fully POSIX compliant file systems that
     work with minimal edge cases, since this is what most instructional
     code assumes. This rules out object-store backed filesystems such as
     [s3fs](https://github.com/s3fs-fuse/s3fs-fuse).
 
-2.  Users don\'t usually need guaranteed space or IOPS, so providing
+2.  Users don't usually need guaranteed space or IOPS, so providing
     them each a [persistent cloud
     disk](https://cloud.google.com/persistent-disk/) gets unnecessarily
     expensive - since we are paying for it whether it is used or not.
@@ -56,9 +59,13 @@ Filestore](https://cloud.google.com/filestore/). This was mostly due to
 NFS daemon stability issues, which caused many outages and impacted
 thousands of our users and courses.
 
-Currently each hub has it\'s own filestore instance, except for a few
+Currently each hub has it's own filestore instance, except for a few
 small courses that share one. This has proven to be much more stable and
 able to handle the load.
+
+We also still have our legacy NFS server VM running, which we use to mount the
+Filestore shares and access home directories for troubleshooting and running
+the archiver tool at the end of each semester.
 
 ## Home directory paths
 
@@ -66,14 +73,14 @@ Each user on each hub gets their own directory on the server that gets
 treated as their home directory. The staging & prod servers share home
 directory paths, so users get the same home directories on both.
 
-For most hubs, the user\'s home directory path relative to the exported
+For most hubs, the user's home directory path relative to the exported
 filestore share is
 `<hub-name>-filestore/<hub-name>/<prod|staging>/home/<user-name>`.
 
 ## NFS Client
 
-We currently have two approaches for mounting the user\'s home directory
-into each user\'s pod.
+We currently have two approaches for mounting the user's home directory
+into each user's pod.
 
 1.  Mount the NFS Share once per node to a well known location, and use
     [hostpath](https://kubernetes.io/docs/concepts/storage/volumes/#hostpath)

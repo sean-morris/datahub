@@ -1,22 +1,12 @@
-=======================
-Contributing to DataHub
-=======================
-
-.. toctree::
-   :titlesonly:
-   :maxdepth: 2
-
-   pre-reqs
-   structure
-   storage
-   cluster-config
-   credentials
-   incidents/index
-
-.. toctree::
-   :titlesonly:
-   :maxdepth: 2
-
-   howto/index
-
-   deployments/index
+---
+title: Architecture and Contribution Overview
+listing:
+  contents:
+    - pre-reqs.qmd
+    - structure.qmd
+    - cicd-github-actions.qmd
+    - cluster-config.qmd
+    - credentials.qmd
+    - storage.qmd
+  sort: false
+---
