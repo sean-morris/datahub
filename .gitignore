@@ -11,4 +11,6 @@ hub/charts
 **/__pycache__
 **/*.pyc
 
+# random stuff
 **/.DS_Store
+**/*.bak
