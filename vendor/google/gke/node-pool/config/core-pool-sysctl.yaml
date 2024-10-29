@@ -49,11 +49,3 @@ linuxConfig:
     net.core.wmem_max: '67108864'
     net.ipv4.tcp_rmem: '4096 87380 33554432'
     net.ipv4.tcp_wmem: '4096 87380 33554432'
-
-    # the chp was also running out of ehpemeral ports:
-    # https://jira-secure.berkeley.edu/browse/DH-377
-    # https://github.com/jupyterhub/configurable-http-proxy/issues/557
-    #
-    # original values:
-    # net.ipv4.ip_local_port_range = 32768    60999
-    net.ipv4.ip_local_port_range: '10000 65000'
