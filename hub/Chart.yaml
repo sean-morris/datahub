@@ -2,4 +2,4 @@ apiVersion: v1
 appVersion: '1.0'
 description: Deployment Chart for JupyterHub
 name: hub
-version: 20240731-224556.git.8607.hf7abb041
+version: 20240731-224556.git.8735.h3e417283
