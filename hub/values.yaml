@@ -43,10 +43,10 @@ jupyterhub:
       # bump the default ip_local_port_range from "32768 60999" to "10000 65000"
       # https://z2jh.jupyter.org/en/latest/resources/reference.html#proxy-chp-extrapodspec
       # https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/pod-v1/#PodSpec
-      # 
+      #
       extraPodSpec:
         securityContext:
-          sysctls: 
+          sysctls:
             name: "net.ipv4.ip_local_port_range"
             value: "10000 65000"
       image:
